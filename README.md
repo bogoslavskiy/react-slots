@@ -1,4 +1,4 @@
-### React Slots 
+# React Slots 
 
 ## Install 
 
