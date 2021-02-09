@@ -1,0 +1,33 @@
+{
+  "name": "@bogoslavskiy/react-slots",
+  "author": "Artem Bogoslavskiy",
+  "version": "0.1.0",
+  "description": "React Slots",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [
+    "react",
+    "react-native",
+    "slots"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "nanoid": "^3.1.20"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.1",
+    "react": "^17.0.1",
+    "tslib": "^2.1.0",
+    "typescript": "^4.1.2"
+  },
+  "peerDependencies": {
+    "react": "*"
+  }
+}
