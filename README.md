@@ -13,7 +13,6 @@ import * as React from 'react';
 import { createSlot, useSlots } from '@bogoslavskiy/react-slots';
 
 interface MySlot1Props {
-  myProp: string;
   children?: React.ReactNode;
 }
 
@@ -61,7 +60,7 @@ const App: React.FC = () => {
 
   return (
     <TestComponent>
-      <MySlot1 myProp="my prop value">
+      <MySlot1>
         <div>This is slot 1</div>
         <div>Count: {count}</div>
       </MySlot1>
