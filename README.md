@@ -8,7 +8,7 @@ $ yarn add @bogoslavskiy/react-slots
 
 ## Usage
 
-```js
+```ts
 import * as React from 'react';
 import { createSlot, useSlots } from '@bogoslavskiy/react-slots';
 
