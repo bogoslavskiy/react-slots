@@ -10,7 +10,82 @@ Works with React and React Native.
 $ yarn add @bogoslavskiy/react-slots
 ```
 
-## Usage
+## Examples
+### Without slots (Standard practice)
+```ts 
+import * as React from 'react';
+
+interface HeaderProps {
+  title: string;
+}
+
+const Header = React.memo<HeaderProps>(({ title }) => {
+  return (
+    <div>
+      {title}
+    </div>
+  );
+});
+
+const Footer = React.memo(({ children }) => (
+  <div>
+    {children}
+  </div>
+));
+
+interface PageProps {
+  HeaderComponent: () => React.ReactNode;
+  FooterComponent: () => React.ReactNode;
+}
+
+const Page = React.memo<PageProps>((props) => {
+  const { children, HeaderComponent, FooterComponent } = props;
+
+  return (
+    <div>
+      <div>
+        <div>Render Header</div>
+        <div>{HeaderComponent}</div>
+      </div>
+
+      <div>{children}</div>
+
+      <div>
+        <div>Render Footer</div>
+        <div>{FooterComponent}</div>
+      </div>
+    </div>
+  )
+});
+
+const App: React.FC = () => {
+  const [count, setCount] = React.useState(0);
+
+  return (
+    <Page
+      HeaderComponent={() => (
+        <Header title="Title" />
+      )}
+      FooterComponent={() => (
+        <Footer>
+          <div>This is slot 1</div>
+          <div>Count: {count}</div>
+          {/* 
+            There can be many nested components here.
+            The more components, the harder it is to read the code
+          */}
+        </Footer>
+      )}
+    >
+      <button onClick={() => setCount(count + 1)}>
+        Press me
+      </button>
+    </Page>
+  )
+};
+```
+
+### With slots
 
 ```ts
 import * as React from 'react';
@@ -64,14 +139,15 @@ const App: React.FC = () => {
   return (
     <Page>
       <Header title="Title" />
-      <Footer>
-        <div>This is slot 1</div>
-        <div>Count: {count}</div>
-      </Footer>
 
       <button onClick={() => setCount(count + 1)}>
         Press me
       </button>
+
+       <Footer>
+        <div>This is slot 1</div>
+        <div>Count: {count}</div>
+      </Footer>
     </Page>
   )
 };
