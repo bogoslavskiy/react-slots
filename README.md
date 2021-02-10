@@ -1,4 +1,5 @@
 # React Slots 
+[![npm version](https://badge.fury.io/js/%40bogoslavskiy%2Freact-slots.svg)](https://badge.fury.io/js/%40bogoslavskiy%2Freact-slots)
 
 ## Install 
 
