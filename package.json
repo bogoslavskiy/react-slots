@@ -1,7 +1,7 @@
 {
   "name": "@bogoslavskiy/react-slots",
   "author": "Artem Bogoslavskiy",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "React Slots",
   "repository": {
     "type": "git",
@@ -22,9 +22,7 @@
     "slots"
   ],
   "license": "MIT",
-  "dependencies": {
-    "nanoid": "^3.1.20"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/react": "^17.0.1",
     "react": "^17.0.1",

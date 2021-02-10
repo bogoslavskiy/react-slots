@@ -1,68 +1,55 @@
 import * as React from 'react';
-import { nanoid } from 'nanoid/non-secure';
 
-type SlotsNames<T> = {
-  [P in keyof T]: string;
-}
+type SlotComponent<P, T> = React.NamedExoticComponent<P & SlotProps> & Required<DisplayName<T>>;
 
-type RevertSlotsNames<T> = {
-  [key: string]: keyof T;
-}
-
-type SlotsComponents<T> = {
-  [key in keyof T]: React.ReactNode;
+type SlotsComponents<T extends string[]> = {
+  [key in T[number]]: React.ReactNode;
 }
 
 type SlotProps = {
   showChildren?: boolean;
+  children?: React.ReactNode;
 }
 
 type DisplayName<T = string> = {
   displayName?: T;
 }
 
-export function createSlot<P>(
-  component: React.ComponentType<P>,
-  propsAreEqual?: (
-    prevProps: Readonly<React.PropsWithChildren<P & SlotProps>>, 
-    nextProps: Readonly<React.PropsWithChildren<P & SlotProps>>
-  ) => boolean
-) {
-  const Component: React.ComponentType<any> = component;
-  const Slot = React.memo<P & SlotProps>((props) => {
-    const { showChildren, ...otherProps } = props;
-    return showChildren ? <Component {...otherProps} /> : null;
-  }, propsAreEqual);
+export function createSlot<T extends string>(displayName: T) {
+  const memo = <P extends {}>(
+    Component: React.ComponentType<P>,
+    propsAreEqual?: (
+      prevProps: Readonly<React.PropsWithChildren<P & SlotProps>>, 
+      nextProps: Readonly<React.PropsWithChildren<P & SlotProps>>
+    ) => boolean
+  ) => { 
+    const SlotComponent = React.memo<P & SlotProps>((props) => {
+      return props.showChildren ? <Component {...props} /> : null;
+    }, propsAreEqual);
 
-  Slot.displayName = `Slot-${nanoid()}`;
-  
-  return Slot as React.NamedExoticComponent<P & SlotProps> & Required<DisplayName>;
+    SlotComponent.displayName = displayName;
+    
+    return SlotComponent as SlotComponent<P, T>;
+  }
+
+  return { memo, displayName };
 }
 
-export function useSlots<T>(children: React.ReactNode, names: SlotsNames<T>) {
-  const revertNames = React.useMemo(() => {
-    return Object.keys(names).reduce<RevertSlotsNames<T>>((accumulator, alias) => {
-      const key = alias as keyof T;
-      const value = names[key];
-      accumulator[value] = key;
-      return accumulator;
-    }, {});
-  }, []);
-
+export function useSlots<T extends string[]>(children: React.ReactNode, names: T) {
+  const namesSet = React.useMemo(() => new Set(names), []);
   const slots = React.useMemo(() => {
-    const initial = {} as SlotsComponents<T>;
-    return Object.keys(names).reduce<SlotsComponents<T>>((slots, key) => {
-      slots[key as keyof T] = null;
+    const accumulator = {} as SlotsComponents<T>;
+    return names.reduce((slots, name: T[number]) => {
+      slots[name] = null;
       return slots;
-    }, initial);
+    }, accumulator);
   }, []);
-
   
   return React.Children.toArray(children).reduce<SlotsComponents<T>>((slots, child) => {
     if (React.isValidElement(child)) {
       const type = child.type as React.ReactNode & DisplayName;
-      const displayName = type?.displayName;
-      const alias = displayName && revertNames[displayName];
+      const displayName = type?.displayName as T[number] | undefined;
+      const alias = displayName && namesSet.has(displayName) ? displayName : undefined;
 
       if (alias) {
         slots[alias] = React.cloneElement(child, { showChildren: true });
