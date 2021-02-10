@@ -68,7 +68,6 @@ const App: React.FC = () => {
       )}
       FooterComponent={() => (
         <Footer>
-          <div>This is slot 1</div>
           <div>Count: {count}</div>
           {/* 
             There can be many nested components here.
@@ -95,6 +94,7 @@ interface HeaderProps {
   title: string;
 }
 
+// For convenience, we can separate slot creation from component.
 const HeaderSlot = createSlot('Header');
 const Header = HeaderSlot.memo<HeaderProps>(({ title }) => {
   return (
@@ -145,7 +145,6 @@ const App: React.FC = () => {
       </button>
 
        <Footer>
-        <div>This is slot 1</div>
         <div>Count: {count}</div>
       </Footer>
     </Page>
