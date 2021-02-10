@@ -1,8 +1,12 @@
 {
   "name": "@bogoslavskiy/react-slots",
   "author": "Artem Bogoslavskiy",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React Slots",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bogoslavskiy/react-slots"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
