@@ -1,9 +1,15 @@
 # React Slots 
 [![npm version](https://badge.fury.io/js/%40bogoslavskiy%2Freact-slots.svg)](https://badge.fury.io/js/%40bogoslavskiy%2Freact-slots)
 
-Allows you to create a hierarchical component model instead of passing large components through render props.
-<br />
-Works with React and React Native.
+<img width="2400" alt="Group 1" src="https://user-images.githubusercontent.com/5034713/107588868-c4650580-6c15-11eb-8655-84fefa4eef55.png">
+
+<p>
+  Allows you to create a hierarchical component model instead of passing large components through render props.
+</p>
+<p>
+  Works with React and React Native.
+</p>
+
 ## Install 
 
 ```bash
