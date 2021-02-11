@@ -1,6 +1,3 @@
-# React Slots 
-[![npm version](https://badge.fury.io/js/%40bogoslavskiy%2Freact-slots.svg)](https://badge.fury.io/js/%40bogoslavskiy%2Freact-slots)
-
 <img width="2400" alt="Group 1" src="https://user-images.githubusercontent.com/5034713/107588868-c4650580-6c15-11eb-8655-84fefa4eef55.png">
 
 <p>
@@ -11,6 +8,7 @@
 </p>
 
 ## Install 
+[![npm version](https://badge.fury.io/js/%40bogoslavskiy%2Freact-slots.svg)](https://badge.fury.io/js/%40bogoslavskiy%2Freact-slots)
 
 ```bash
 $ yarn add @bogoslavskiy/react-slots
