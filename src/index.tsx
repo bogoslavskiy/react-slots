@@ -52,7 +52,9 @@ export function useSlots<T extends string[]>(children: React.ReactNode, names: T
       const alias = displayName && namesSet.has(displayName) ? displayName : undefined;
 
       if (alias) {
-        slots[alias] = React.cloneElement(child, { showChildren: true });
+        slots[alias] = <T extends {}>(props: T) => {
+          return React.cloneElement(child, { showChildren: true, ...props });
+        };
       }
     }
 
