@@ -3,7 +3,7 @@ import * as React from 'react';
 type SlotComponent<P, T> = React.NamedExoticComponent<P & SlotProps> & Required<DisplayName<T>>;
 
 type SlotsComponents<T extends string[]> = {
-  [key in T[number]]: React.ReactNode;
+  [key in T[number]]: <P>(props?: P) => React.ReactNode;
 }
 
 type SlotProps = {
@@ -40,7 +40,7 @@ export function useSlots<T extends string[]>(children: React.ReactNode, names: T
   const slots = React.useMemo(() => {
     const accumulator = {} as SlotsComponents<T>;
     return names.reduce((slots, name: T[number]) => {
-      slots[name] = null;
+      slots[name] = () => null;
       return slots;
     }, accumulator);
   }, []);
@@ -52,7 +52,7 @@ export function useSlots<T extends string[]>(children: React.ReactNode, names: T
       const alias = displayName && namesSet.has(displayName) ? displayName : undefined;
 
       if (alias) {
-        slots[alias] = <T extends {}>(props: T) => {
+        slots[alias] = (props: any) => {
           return React.cloneElement(child, { showChildren: true, ...props });
         };
       }
